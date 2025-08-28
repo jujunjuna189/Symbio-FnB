@@ -48,7 +48,7 @@ class RepositoryCart {
         MigrationCart.updatedAt: item.updatedAt ?? DateFormatter.instance.dateNowFormatter(),
       });
     }
-
+    // commit
     await batch.commit(noResult: true);
   }
 
