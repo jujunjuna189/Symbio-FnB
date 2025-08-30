@@ -10,6 +10,8 @@ import 'package:pos_simple_v2/pages/pdf_viewer/bloc/bloc_pdf_viewer.dart';
 import 'package:pos_simple_v2/pages/pdf_viewer/page_pdf_viewer.dart';
 import 'package:pos_simple_v2/pages/product/bloc/bloc_product.dart';
 import 'package:pos_simple_v2/pages/product/page_product.dart';
+import 'package:pos_simple_v2/pages/profile/bloc/bloc_profile.dart';
+import 'package:pos_simple_v2/pages/profile/page_profile.dart';
 import 'package:pos_simple_v2/routes/route_name.dart';
 
 class RouteGenerate {
@@ -21,6 +23,11 @@ class RouteGenerate {
         return MaterialPageRoute(
           builder: (context) =>
               BlocProvider(create: (context) => BlocProduct()..initialPage(), child: const PageProduct()),
+        );
+      case RouteName.PROFILE:
+        return MaterialPageRoute(
+          builder: (context) =>
+              BlocProvider(create: (context) => BlocProfile()..initialPage(), child: const PageProfile()),
         );
       case RouteName.CART:
         return MaterialPageRoute(

@@ -29,7 +29,7 @@ class FieldArea extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? ThemeApp.color.white,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border.all(width: 1, color: borderColor ?? ThemeApp.color.primary.withOpacity(0.5)),
+        border: Border.all(width: 1, color: borderColor ?? ThemeApp.color.black.withOpacity(0.2)),
       ),
       child: TextField(
         controller: controller,
@@ -40,7 +40,7 @@ class FieldArea extends StatelessWidget {
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           hintText: placeHolder ?? '',
-          hintStyle: ThemeApp.font.regular.copyWith(fontSize: 12, color: ThemeApp.color.primary),
+          hintStyle: ThemeApp.font.regular.copyWith(fontSize: 12),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           border: InputBorder.none,
         ),

@@ -2,6 +2,7 @@
 
 class RouteName {
   static const INITIAL = '/';
+  static const PROFILE = "/profile";
   static const CART = '/cart';
   static const ORDER = '/order';
   static const ORDER_DETAIL = '/order-detail';

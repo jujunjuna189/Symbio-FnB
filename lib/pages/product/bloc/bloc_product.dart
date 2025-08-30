@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:pos_simple_v2/databases/cart/model/model_cart.dart';
 import 'package:pos_simple_v2/databases/cart/repository/repository_cart.dart';
+import 'package:pos_simple_v2/databases/outlet/model/model_outlet.dart';
+import 'package:pos_simple_v2/databases/outlet/repository/repository_outlet.dart';
 import 'package:pos_simple_v2/databases/product/model/model_product.dart';
 import 'package:pos_simple_v2/databases/product/repository/repository_product.dart';
 import 'package:pos_simple_v2/pages/product/state/state_product.dart';
@@ -11,8 +13,21 @@ class BlocProduct extends Cubit<StateProduct> {
 
   void initialPage() {
     emit(ProductLoaded());
-    onGetProduct().then((res) {
-      onGetCart();
+    getOutlet().then((res) {
+      onGetProduct().then((res) {
+        onGetCart();
+      });
+    });
+  }
+
+  Future<void> getOutlet() async {
+    final currentState = state as ProductLoaded;
+    await RepositoryOutlet.instance.get().then((res) {
+      List<ModelOutlet> outlets = [];
+      outlets.addAll(res.map((res) => ModelOutlet.fromMap(res)).toList());
+
+      if (outlets.isEmpty) return;
+      emit(currentState.copyWith(outlet: outlets.first));
     });
   }
 

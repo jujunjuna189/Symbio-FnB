@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ThemeColor {
   final Color primary = Colors.amber;
   final Color secondary = Colors.black;
+  final Color accent = const Color.fromRGBO(0, 87, 81, 1);
   final Color danger = const Color.fromARGB(255, 104, 12, 12);
   final Color warning = const Color.fromRGBO(233, 250, 183, 1);
   final Color success = const Color.fromARGB(255, 185, 255, 152);

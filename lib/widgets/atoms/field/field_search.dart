@@ -97,7 +97,7 @@ class _FieldSearchState extends State<FieldSearch> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(width: 1, color: ThemeApp.color.primary.withOpacity(0.2)),
+        border: Border.all(width: 1, color: ThemeApp.color.black.withOpacity(0.2)),
         borderRadius: BorderRadius.circular(8),
       ),
       height: widget.height,
@@ -114,7 +114,7 @@ class _FieldSearchState extends State<FieldSearch> {
           style: ThemeApp.font.regular.copyWith(fontSize: 14),
           decoration: InputDecoration(
             hintText: widget.placeHolder ?? '',
-            hintStyle: ThemeApp.font.regular.copyWith(color: ThemeApp.color.primary.withOpacity(0.5)),
+            hintStyle: ThemeApp.font.regular.copyWith(color: ThemeApp.color.black.withOpacity(0.5)),
             isDense: true,
             border: OutlineInputBorder(
               borderSide: const BorderSide(width: 0, style: BorderStyle.none),
@@ -123,7 +123,7 @@ class _FieldSearchState extends State<FieldSearch> {
             filled: true,
             fillColor: Colors.white,
             prefix: const Padding(padding: EdgeInsets.all(0)),
-            prefixIcon: const Icon(Icons.qr_code_2),
+            prefixIcon: const Icon(Icons.search),
           ),
         ),
       ),
