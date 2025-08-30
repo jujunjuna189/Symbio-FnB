@@ -79,70 +79,79 @@ class PageProduct extends StatelessWidget {
                     if (state is ProductLoading) {
                       return Container();
                     } else if (state is ProductLoaded && state.products.isNotEmpty) {
-                      return StaggeredGrid.count(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        children: state.products.asMap().entries.map((item) {
-                          return GestureDetector(
-                            onTap: () =>
-                                ModalProductOrder.instance.show(context, blocProduct: blocProduct, product: item.value),
-                            child: Container(
-                              height: 235,
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Image placeholder
-                                  Container(
-                                    height: 150, // Adjust height as needed
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: ThemeApp.color.primary.withOpacity(0.6),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: item.value.image != null
-                                        ? ClipRRect(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            child: GetImage(path: item.value.image ?? ''),
-                                          )
-                                        : Container(),
-                                  ),
-                                  const SizedBox(height: 8.0),
-                                  // First text line placeholder
-                                  Text(item.value.name, style: ThemeApp.font.bold, overflow: TextOverflow.ellipsis),
-                                  Expanded(child: Container()),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "${PriceFormatter.instance.decimal(double.parse(item.value.price.toString()), decimalDigits: 0)}/${item.value.unit}",
-                                              style: ThemeApp.font.regular.copyWith(fontSize: 11, color: Colors.grey),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            // Second text line placeholder
-                                            Text(
-                                              PriceFormatter.instance.price(
-                                                double.parse(item.value.price.toString()),
-                                                decimalDigits: 0,
-                                              ),
-                                              style: ThemeApp.font.bold.copyWith(color: Colors.blueGrey),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Menus(id: item.value.id ?? 0),
-                                    ],
-                                  ),
-                                ],
+                      return SingleChildScrollView(
+                        padding: EdgeInsets.only(bottom: 120),
+                        child: StaggeredGrid.count(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          children: state.products.asMap().entries.map((item) {
+                            return GestureDetector(
+                              onTap: () => ModalProductOrder.instance.show(
+                                context,
+                                blocProduct: blocProduct,
+                                product: item.value,
                               ),
-                            ),
-                          );
-                        }).toList(),
+                              child: Container(
+                                height: 235,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Image placeholder
+                                    Container(
+                                      height: 150, // Adjust height as needed
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: ThemeApp.color.primary.withOpacity(0.6),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      child: item.value.image != null
+                                          ? ClipRRect(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              child: GetImage(path: item.value.image ?? ''),
+                                            )
+                                          : Container(),
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    // First text line placeholder
+                                    Text(item.value.name, style: ThemeApp.font.bold, overflow: TextOverflow.ellipsis),
+                                    Expanded(child: Container()),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${PriceFormatter.instance.decimal(double.parse(item.value.price.toString()), decimalDigits: 0)}/${item.value.unit}",
+                                                style: ThemeApp.font.regular.copyWith(fontSize: 11, color: Colors.grey),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              // Second text line placeholder
+                                              Text(
+                                                PriceFormatter.instance.price(
+                                                  double.parse(item.value.price.toString()),
+                                                  decimalDigits: 0,
+                                                ),
+                                                style: ThemeApp.font.bold.copyWith(color: Colors.blueGrey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Menus(id: item.value.id ?? 0),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       );
                     } else {
                       return Column(

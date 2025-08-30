@@ -7,6 +7,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pos_simple_v2/databases/order/model/model_order.dart';
 import 'package:pos_simple_v2/databases/order/model/model_order_product.dart';
+import 'package:pos_simple_v2/databases/outlet/model/model_outlet.dart';
+import 'package:pos_simple_v2/databases/outlet/repository/repository_outlet.dart';
 import 'package:pos_simple_v2/helpers/formatter/price_formatter.dart';
 
 class InvoicePdfOrder {
@@ -14,6 +16,12 @@ class InvoicePdfOrder {
   static final InvoicePdfOrder instance = InvoicePdfOrder._privateConstructor();
 
   Future<String> generate(BuildContext context, {ModelOrder? order, List<ModelOrderProduct>? products}) async {
+    // Get outlet
+    ModelOutlet? outlet;
+    await RepositoryOutlet.instance.get().then((res) {
+      outlet = ModelOutlet.fromMap(res.first);
+    });
+    // End Get Outlet
     // Create a PDF document
     final pdf = pw.Document();
 
@@ -32,23 +40,28 @@ class InvoicePdfOrder {
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
                   pw.Text(
-                    "POTONG AYAM HEGAR",
+                    outlet?.name ?? "Nama toko belum diatur",
                     style: pw.TextStyle(font: ttf, fontSize: 20, fontWeight: pw.FontWeight.bold),
                     textAlign: pw.TextAlign.center,
                   ),
                 ],
               ),
               pw.SizedBox(height: 8),
-              pw.Text(
-                "Jl. Raya Ciakar, Kawali, Kec. Cipaku, Kabupaten Ciamis, Jawa Barat 46253",
-                style: pw.TextStyle(font: ttf, fontSize: 11),
-                textAlign: pw.TextAlign.center,
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.center,
+                children: [
+                  pw.Text(
+                    outlet?.address ?? "-",
+                    style: pw.TextStyle(font: ttf, fontSize: 11),
+                    textAlign: pw.TextAlign.center,
+                  ),
+                ],
               ),
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
                   pw.Text(
-                    "Telepon: 0812-2221-5665",
+                    "Telepon: ${outlet?.phone ?? "-"}",
                     style: pw.TextStyle(font: ttf, fontSize: 11),
                     textAlign: pw.TextAlign.center,
                   ),
